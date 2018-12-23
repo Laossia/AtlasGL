@@ -72,4 +72,12 @@ public class Main implements GameListener {
 
 	}
 
+	@Override
+	public void end() {
+
+		model.remove();
+		basicshader.remove();
+
+	}
+
 }

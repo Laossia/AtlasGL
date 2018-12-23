@@ -2,8 +2,10 @@ package org.atlasgl.coreapi.utils;
 
 public interface GameListener {
 
-    void update();
+	void update();
 
-    void render();
+	void render();
+
+	void end();
 
 }

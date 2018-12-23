@@ -17,144 +17,146 @@ import org.lwjgl.opengl.GL11;
 
 public class Core {
 
-    private String name, version;
-    private int fps, ups;
+	private String name, version;
+	private int fps, ups;
 
-    private ModuleManager mm;
-    private GameLoop gameloop;
-    private Display display;
+	private ModuleManager mm;
+	private GameLoop gameloop;
+	private Display display;
 
-    private Keyboard keyboard;
-    private Mouse mouse;
-    private Renderer renderer;
+	private Keyboard keyboard;
+	private Mouse mouse;
+	private Renderer renderer;
 
-    private GameListener updateListener;
-    private GameListener renderListener;
+	private GameListener updateListener;
+	private GameListener renderListener;
 
-    private Class<? extends GameListener> game;
+	private Class<? extends GameListener> game;
 
-    public Core(GameListener gamelistener, String n, String v, int fps, int ups) {
+	public Core(GameListener gamelistener, String n, String v, int fps, int ups) {
 
-        this.name = n;
-        this.version = v;
-        this.fps = fps;
-        this.ups = ups;
+		this.name = n;
+		this.version = v;
+		this.fps = fps;
+		this.ups = ups;
 
-        this.setRenderListener(gamelistener);
-        this.setUpdateListener(gamelistener);
-        game = gamelistener.getClass();
+		this.setRenderListener(gamelistener);
+		this.setUpdateListener(gamelistener);
+		game = gamelistener.getClass();
 
-        display = new Display(1280, 720, name + " | " + version);
-        gameloop = new GameLoop(this, this.ups, this.fps, true, display);
-        mm = new ModuleManager();
+		display = new Display(1280, 720, name + " | " + version);
+		gameloop = new GameLoop(this, this.ups, this.fps, true, display);
+		mm = new ModuleManager();
 
-        display.create();
+		display.create();
 
-        keyboard = new Keyboard(display);
-        mouse = new Mouse(display);
-        renderer = new Renderer();
+		keyboard = new Keyboard(display);
+		mouse = new Mouse(display);
+		renderer = new Renderer();
 
-        initializeChildVariables(gamelistener);
+		initializeChildVariables(gamelistener);
 
-    }
+	}
 
-    private void initializeChildVariables(GameListener gamelistener) {
+	private void initializeChildVariables(GameListener gamelistener) {
 
-        for (Field field : game.getDeclaredFields()) {
+		for (Field field : game.getDeclaredFields()) {
 
-            if (field.isAnnotationPresent(InjectKeyboard.class)) {
+			if (field.isAnnotationPresent(InjectKeyboard.class)) {
 
-                try {
+				try {
 
-                    field.set(gamelistener, keyboard);
+					field.set(gamelistener, keyboard);
 
-                } catch (IllegalArgumentException | IllegalAccessException e) {
+				} catch (IllegalArgumentException | IllegalAccessException e) {
 
-                    e.printStackTrace();
+					e.printStackTrace();
 
-                }
+				}
 
-            } else if (field.isAnnotationPresent(InjectMouse.class)) {
+			} else if (field.isAnnotationPresent(InjectMouse.class)) {
 
-                try {
+				try {
 
-                    field.set(gamelistener, mouse);
+					field.set(gamelistener, mouse);
 
-                } catch (IllegalArgumentException | IllegalAccessException e) {
+				} catch (IllegalArgumentException | IllegalAccessException e) {
 
-                    e.printStackTrace();
+					e.printStackTrace();
 
-                }
+				}
 
-            } else if (field.isAnnotationPresent(InjectRenderer.class)) {
+			} else if (field.isAnnotationPresent(InjectRenderer.class)) {
 
-                try {
+				try {
 
-                    field.set(gamelistener, renderer);
+					field.set(gamelistener, renderer);
 
-                } catch (IllegalArgumentException | IllegalAccessException e) {
+				} catch (IllegalArgumentException | IllegalAccessException e) {
 
-                    e.printStackTrace();
+					e.printStackTrace();
 
-                }
+				}
 
-            }
+			}
 
-        }
+		}
 
-    }
+	}
 
-    public void start() {
+	public void start() {
 
-        mm.start();
-        gameloop.start();
+		mm.start();
+		gameloop.start();
 
-    }
+	}
 
-    public void stop() {
+	public void stop() {
 
-        GLFW.glfwTerminate();
-        gameloop.stop();
-        mm.stop();
+		GLFW.glfwTerminate();
+		gameloop.stop();
+		mm.stop();
+		updateListener.end();
 
-    }
+	}
 
-    public void pollEvents() {
+	public void pollEvents() {
 
-        GLFW.glfwPollEvents();
+		GLFW.glfwPollEvents();
 
-    }
+	}
 
-    public void update() {
+	public void update() {
 
-        // Updating things ...
-        updateListener.update();
+		// Updating things ...
+		updateListener.update();
 
-        // Must be updated last
-        keyboard.update();
-        mouse.update();
+		// Must be updated last
+		keyboard.update();
+		mouse.update();
 
-    }
+	}
 
-    public void render() {
+	public void render() {
 
-        GL11.glClearColor(display.getBackgroundColor().x, display.getBackgroundColor().y, display.getBackgroundColor().z, 1.0f);
-        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
-        renderListener.render();
-        // Rendering things
+		GL11.glClearColor(display.getBackgroundColor().x, display.getBackgroundColor().y,
+				display.getBackgroundColor().z, 1.0f);
+		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
+		renderListener.render();
+		// Rendering things
 
-    }
+	}
 
-    public void setUpdateListener(GameListener listener) {
+	private void setUpdateListener(GameListener listener) {
 
-        this.updateListener = listener;
+		this.updateListener = listener;
 
-    }
+	}
 
-    public void setRenderListener(GameListener listener) {
+	private void setRenderListener(GameListener listener) {
 
-        this.renderListener = listener;
+		this.renderListener = listener;
 
-    }
+	}
 
 }
