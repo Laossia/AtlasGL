@@ -1,5 +1,8 @@
 package org.atlasgl.coreapi;
 
+import java.lang.reflect.Field;
+
+import org.atlasgl.coreapi.inputs.Keyboard;
 import org.atlasgl.coreapi.inputs.Mouse;
 import org.atlasgl.coreapi.render.Display;
 import org.atlasgl.coreapi.render.Renderer;
@@ -9,11 +12,8 @@ import org.atlasgl.coreapi.utils.ModuleManager;
 import org.atlasgl.coreapi.utils.annotations.InjectKeyboard;
 import org.atlasgl.coreapi.utils.annotations.InjectMouse;
 import org.atlasgl.coreapi.utils.annotations.InjectRenderer;
-import org.atlasgl.coreapiI.inputs.Keyboard;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
-
-import java.lang.reflect.Field;
 
 public class Core {
 
