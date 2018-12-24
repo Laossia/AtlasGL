@@ -1,4 +1,4 @@
-package org.atlasgl.coreapi.loaders;
+package org.atlasgl.coreapi.utils.loaders;
 
 import java.awt.Font;
 import java.awt.FontFormatException;
