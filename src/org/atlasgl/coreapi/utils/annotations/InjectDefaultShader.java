@@ -8,7 +8,7 @@ import static java.lang.annotation.ElementType.FIELD;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(FIELD)
-public @interface InjectRenderer {
+public @interface InjectDefaultShader {
 
 }
 

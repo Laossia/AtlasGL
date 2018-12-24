@@ -5,13 +5,13 @@ import java.lang.reflect.Field;
 import org.atlasgl.coreapi.inputs.Keyboard;
 import org.atlasgl.coreapi.inputs.Mouse;
 import org.atlasgl.coreapi.render.Display;
-import org.atlasgl.coreapi.render.Renderer;
+import org.atlasgl.coreapi.shader.Shader;
 import org.atlasgl.coreapi.utils.GameListener;
 import org.atlasgl.coreapi.utils.GameLoop;
 import org.atlasgl.coreapi.utils.ModuleManager;
+import org.atlasgl.coreapi.utils.annotations.InjectDefaultShader;
 import org.atlasgl.coreapi.utils.annotations.InjectKeyboard;
 import org.atlasgl.coreapi.utils.annotations.InjectMouse;
-import org.atlasgl.coreapi.utils.annotations.InjectRenderer;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
 
@@ -26,12 +26,13 @@ public class Core {
 
 	private Keyboard keyboard;
 	private Mouse mouse;
-	private Renderer renderer;
 
 	private GameListener updateListener;
 	private GameListener renderListener;
-
+	
 	private Class<? extends GameListener> game;
+	
+	private Shader defaultShader;
 
 	public Core(GameListener gamelistener, String n, String v, int fps, int ups) {
 
@@ -52,7 +53,8 @@ public class Core {
 
 		keyboard = new Keyboard(display);
 		mouse = new Mouse(display);
-		renderer = new Renderer();
+		
+		defaultShader = new Shader("basic");
 
 		initializeChildVariables(gamelistener);
 
@@ -86,11 +88,11 @@ public class Core {
 
 				}
 
-			} else if (field.isAnnotationPresent(InjectRenderer.class)) {
+			} else if (field.isAnnotationPresent(InjectDefaultShader.class)) {
 
 				try {
 
-					field.set(gamelistener, renderer);
+					field.set(gamelistener, defaultShader);
 
 				} catch (IllegalArgumentException | IllegalAccessException e) {
 
@@ -98,7 +100,7 @@ public class Core {
 
 				}
 
-			}
+			} 
 
 		}
 
@@ -157,6 +159,14 @@ public class Core {
 
 		this.renderListener = listener;
 
+	}
+
+	public void enableTexture2D() {
+		
+		GL11.glEnable(GL11.GL_BLEND);
+		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GL11.glEnable(GL11.GL_TEXTURE_2D);
+		
 	}
 
 }

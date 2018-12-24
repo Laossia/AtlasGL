@@ -1,12 +1,13 @@
-#version 400 core
+#version 120
 
-in vec3 vertices;
+attribute vec3 vertices;
+attribute vec2 textures;
 
-out vec4 color;
+varying vec2 tex_coords;
 
 void main() {
 
+	tex_coords = textures;
 	gl_Position = vec4(vertices, 1.0);
-	color = vec4(vertices.x + 0.5, vertices.z + 0.5, vertices.y + 0.5, 1.0);
-
+	
 }
