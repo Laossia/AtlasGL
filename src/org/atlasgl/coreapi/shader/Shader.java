@@ -30,7 +30,7 @@ public abstract class Shader {
 
         if (GL20.glGetShaderi(vertexShaderID, GL20.GL_COMPILE_STATUS) == GL11.GL_FALSE) {
 
-            System.err.println("[ERROR][CoreAPI][Shader] Vertex Shader - " + GL20.glGetShaderInfoLog(vertexShaderID));
+            System.err.println("\u001B[31m" + "[ERROR][AtlasGL][Shader] Vertex Shader - " + GL20.glGetShaderInfoLog(vertexShaderID));
 
         }
 
@@ -40,7 +40,7 @@ public abstract class Shader {
 
         if (GL20.glGetShaderi(fragmentShaderID, GL20.GL_COMPILE_STATUS) == GL11.GL_FALSE) {
 
-            System.err.println("[ERROR][CoreAPI][Shader] FragmentVertex Shader - " + GL20.glGetShaderInfoLog(fragmentShaderID));
+            System.err.println("\u001B[31m" + "[ERROR][AtlasGL][Shader] FragmentVertex Shader - " + GL20.glGetShaderInfoLog(fragmentShaderID));
 
         }
 
@@ -51,7 +51,7 @@ public abstract class Shader {
 
         if (GL20.glGetProgrami(programID, GL20.GL_LINK_STATUS) == GL11.GL_FALSE) {
 
-            System.err.println("[ERROR][CoreAPI][Shader] Program Linking - " + GL20.glGetProgramInfoLog(programID));
+            System.err.println("\u001B[31m" + "[ERROR][AtlasGL][Shader] Program Linking - " + GL20.glGetProgramInfoLog(programID));
 
         }
 
@@ -59,7 +59,7 @@ public abstract class Shader {
 
         if (GL20.glGetProgrami(programID, GL20.GL_VALIDATE_STATUS) == GL11.GL_FALSE) {
 
-            System.err.println("[ERROR][CoreAPI][Shader] Program Validating - " + GL20.glGetProgramInfoLog(programID));
+            System.err.println("\u001B[31m" + "[ERROR][AtlasGL][Shader] Program Validating - " + GL20.glGetProgramInfoLog(programID));
 
         }
 
@@ -107,7 +107,7 @@ public abstract class Shader {
 
         } catch (IOException e) {
 
-            System.err.println("[ERROR][CoreAPI][Shader] Couldn't find file !");
+            System.err.println("[ERROR][AtlasGL][Shader] Couldn't find file !");
 
         }
 

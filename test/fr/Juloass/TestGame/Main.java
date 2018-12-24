@@ -31,7 +31,7 @@ public class Main implements GameListener {
 
 	public Main() {
 
-		Core core = new Core(this, "Test Game", " v1.0.001b", 1080, 720);
+		Core core = new Core(this, "Test Game", " v1.0.001b", 60, 30);
 
 		model = new Model(new float[] {
 

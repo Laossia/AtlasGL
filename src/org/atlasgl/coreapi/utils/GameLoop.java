@@ -62,7 +62,7 @@ public class GameLoop {
 
                 if (RENDER_TIME) {
 
-                    System.out.println("\u001B[33m[INFO][CoreAPI][GameLoop] UPS : " + ticks + " | FPS : " + frames);
+                    System.out.println("\u001B[33m[INFO][AtlasGL][GameLoop] UPS : " + ticks + " | FPS : " + frames);
 
                 }
 
