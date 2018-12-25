@@ -1,26 +1,32 @@
 package org.atlasgl.coreapi.render;
 
+import java.util.HashMap;
+
 import org.atlasgl.coreapi.utils.State;
 import org.joml.Vector3f;
 import org.lwjgl.glfw.GLFW;
+import org.lwjgl.glfw.GLFWImage;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 
-import java.util.HashMap;
-
 public class Display {
 
-    private int width, height;
+	private int width, height;
     private String title;
     private long window = 0;
     private Vector3f backgroundColor = new Vector3f(0.0f, 0.0f, 0.0f);
     private HashMap<Integer, State> keyStates = new HashMap<Integer, State>();
+    
+    private GLFWImage cursorBuffer;
+    private GLFWImage.Buffer iconBuffer;
 
     public Display(int w, int h, String title) {
 
         this.width = w;
         this.height = h;
         this.title = title;
+        cursorBuffer = null;
+        iconBuffer = null;
 
     }
 
@@ -84,6 +90,19 @@ public class Display {
             keyState.released = released;
 
         });
+        
+        if(cursorBuffer != null) {
+        	
+        	long cursor = GLFW.glfwCreateCursor(cursorBuffer, 0, 0);
+        	GLFW.glfwSetCursor(window, cursor);
+        	
+        }
+        
+        if(iconBuffer != null) {
+        	
+        	GLFW.glfwSetWindowIcon(window, iconBuffer);
+        	
+        }
 
         return true;
 
@@ -112,5 +131,44 @@ public class Display {
         return keyStates;
 
     }
+    
+    public void setCursor(org.atlasgl.coreapi.render.Image i) {
+		
+    	GLFWImage iconImage = GLFWImage.malloc(); 
+    	iconBuffer = GLFWImage.malloc(1);
+    	
+    	iconImage.set(i.getWidth(), i.getHeight(), i.getImage());
+    	iconBuffer.put(0, iconImage);
+    	
+    	updateSettings();
+    	
+	}
+
+
+	public void setIcon(org.atlasgl.coreapi.render.Image i) {
+		
+		cursorBuffer = GLFWImage.malloc();   	
+    	cursorBuffer.set(i.getWidth(), i.getHeight(), i.getImage());
+		
+    	updateSettings();
+    	
+	}
+	
+	public void updateSettings() {
+		
+		if(cursorBuffer != null) {
+        	
+        	long cursor = GLFW.glfwCreateCursor(cursorBuffer, 0, 0);
+        	GLFW.glfwSetCursor(window, cursor);
+        	
+        }
+        
+        if(iconBuffer != null) {
+        	
+        	GLFW.glfwSetWindowIcon(window, iconBuffer);
+        	
+        }
+		
+	}
 
 }

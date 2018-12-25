@@ -3,6 +3,7 @@ package fr.Juloass.TestGame;
 import org.atlasgl.coreapi.Core;
 import org.atlasgl.coreapi.inputs.Keyboard;
 import org.atlasgl.coreapi.inputs.Mouse;
+import org.atlasgl.coreapi.render.Image;
 import org.atlasgl.coreapi.render.Texture;
 import org.atlasgl.coreapi.render.scene.Background;
 import org.atlasgl.coreapi.render.scene.Scene;
@@ -39,6 +40,11 @@ public class Main implements GameListener {
 		b = new Background(bt, defaultShader);
 		mainMenu = new Scene(0);
 		mainMenu.setBackground(b);
+		
+		Image i = Image.loadImage("res/textures/bricks.png");
+		
+		core.getDisplay().setCursor(i);
+		core.getDisplay().setIcon(i);
 		
 		core.start();
 

@@ -5,6 +5,7 @@ import java.lang.reflect.Field;
 import org.atlasgl.coreapi.inputs.Keyboard;
 import org.atlasgl.coreapi.inputs.Mouse;
 import org.atlasgl.coreapi.render.Display;
+import org.atlasgl.coreapi.render.Image;
 import org.atlasgl.coreapi.shader.Shader;
 import org.atlasgl.coreapi.utils.GameListener;
 import org.atlasgl.coreapi.utils.GameLoop;
@@ -144,9 +145,28 @@ public class Core {
 		GL11.glClearColor(display.getBackgroundColor().x, display.getBackgroundColor().y,
 				display.getBackgroundColor().z, 1.0f);
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
+		
 		renderListener.render();
 		// Rendering things
 
+	}
+	
+	public Display getDisplay() {
+		
+		return display;
+		
+	}
+	
+	public void setIconImage(Image i) {
+		
+		display.setIcon(i);
+		
+	}
+	
+	public void setCursorImage(Image i) {
+		
+		display.setCursor(i);
+		
 	}
 
 	private void setUpdateListener(GameListener listener) {
