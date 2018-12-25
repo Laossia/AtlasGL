@@ -20,7 +20,9 @@ import static org.lwjgl.opengl.GL20.glGetShaderi;
 import static org.lwjgl.opengl.GL20.glGetUniformLocation;
 import static org.lwjgl.opengl.GL20.glLinkProgram;
 import static org.lwjgl.opengl.GL20.glShaderSource;
+import static org.lwjgl.opengl.GL20.glUniform1f;
 import static org.lwjgl.opengl.GL20.glUniform1i;
+import static org.lwjgl.opengl.GL20.glUniform3f;
 import static org.lwjgl.opengl.GL20.glUniform4f;
 import static org.lwjgl.opengl.GL20.glUniformMatrix4fv;
 import static org.lwjgl.opengl.GL20.glUseProgram;
@@ -35,6 +37,7 @@ import java.net.URISyntaxException;
 import java.nio.FloatBuffer;
 
 import org.joml.Matrix4f;
+import org.joml.Vector3f;
 import org.joml.Vector4f;
 import org.lwjgl.BufferUtils;
 
@@ -93,20 +96,41 @@ public class Shader {
 	}
 	
 	public void setUniform(String uniformName, int value) {
+		
 		int location = glGetUniformLocation(programObject, uniformName);
 		if (location != -1) glUniform1i(location, value);
+		
+	}
+	
+	public void setUniform(String uniformName, float value) {
+		
+		int location = glGetUniformLocation(programObject, uniformName);
+		if (location != -1) glUniform1f(location, value);
+		
 	}
 	
 	public void setUniform(String uniformName, Vector4f value) {
+		
 		int location = glGetUniformLocation(programObject, uniformName);
 		if (location != -1) glUniform4f(location, value.x, value.y, value.z, value.w);
+		
+	}
+	
+	public void setUniform(String uniformName, Vector3f value) {
+		
+		int location = glGetUniformLocation(programObject, uniformName);
+		if (location != -1) glUniform3f(location, value.x, value.y, value.z);
+		
 	}
 	
 	public void setUniform(String uniformName, Matrix4f value) {
+		
 		int location = glGetUniformLocation(programObject, uniformName);
 		FloatBuffer matrixData = BufferUtils.createFloatBuffer(16);
 		value.get(matrixData);
+		// matrixData.flip();
 		if (location != -1) glUniformMatrix4fv(location, false, matrixData);
+		
 	}
 	
 	public void bind() {
@@ -131,4 +155,5 @@ public class Shader {
 		}
 		return outputString.toString();
 	}
+	
 }

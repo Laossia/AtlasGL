@@ -18,10 +18,10 @@ public class Background implements Drawable {
 
 				new float[] {
 
-						-1f, 1f, 0.0f, // TOP LEFT
-						1f, 1f, 0.0f, // TOP RIGHT
-						1f, -1f, 0.0f, // BOTTOM R
-						-1f, -1f, 0.0f, // BOTTOM L
+						-1f, 1f, 0f, // TOP LEFT
+						1f, 1f, 0f, // TOP RIGHT
+						1f, -1f, 0f, // BOTTOM R
+						-1f, -1f, 0f, // BOTTOM L
 
 				}, new float[] {
 

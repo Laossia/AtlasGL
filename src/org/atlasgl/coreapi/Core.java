@@ -130,7 +130,9 @@ public class Core {
 	}
 
 	public void update() {
-
+		
+		display.update();
+		
 		// Updating things ...
 		updateListener.update();
 
@@ -144,7 +146,7 @@ public class Core {
 
 		GL11.glClearColor(display.getBackgroundColor().x, display.getBackgroundColor().y,
 				display.getBackgroundColor().z, 1.0f);
-		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
+		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
 		
 		renderListener.render();
 		// Rendering things

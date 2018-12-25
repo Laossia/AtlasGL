@@ -9,7 +9,6 @@ public interface Drawable {
 	public Shader getShader();
 	public Texture getTexture();
 	public Model getModel();
-	
 	default public void render() {
 		
 		if(getShader() != null) getShader().bind();
